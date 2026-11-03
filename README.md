@@ -2,7 +2,7 @@
 
 **Disciplina:** Projetos de Sistemas · CIESA (Centro Universitário de Ensino Superior do Amazonas)
 **Trabalho:** individual
-**Autor:** Luchie Bonates Simões
+**Autora:** Luchie Bonates Simões
 **Tema:** sistema de empréstimos para uma biblioteca comunitária de Manaus
 
 <!-- Os comentários como este não aparecem no GitHub. Servem de lembrete e podem ser apagados no final. -->
