@@ -78,9 +78,9 @@ A Biblioteca Comunitária de Manaus é uma biblioteca de bairro mantida por doa�
 
 ## Parte 2: Documento de arquitetura
 
-### 2.1 Diagramas C4 (níveis 1 a 3)
+A arquitetura é cliente-servidor: uma aplicação web (cliente) conversa por HTTPS com um servidor/API, que guarda os dados em um banco relacional e se integra a dois serviços externos.
 
-<!-- Todo diagrama tem título e legenda. Os níveis não se misturam: o nível 1 não mostra banco de dados. -->
+### 2.1 Diagramas C4 (níveis 1 a 3)
 
 #### Nível 1: Contexto
 
@@ -91,12 +91,12 @@ title: C4 Nível 1 - Contexto do sistema da biblioteca
 flowchart LR
     Leitor["Leitor"] -->|"pesquisa, reserva e renova"| Sis["Sistema da Biblioteca"]
     Bibliotecario["Bibliotecário"] -->|"registra empréstimos e devoluções"| Sis
-    Admin["Administrador"] -->|"gerencia contas e relatórios"| Sis
+    Admin["Administrador"] -->|"gerencia contas de bibliotecários"| Sis
     Sis -->|"envia aviso de devolução"| Email["Serviço de e-mail"]
-    Sis -->|"consulta dados por ISBN"| Isbn["Base externa de ISBN"]
+    Sis -->|"consulta dados do livro por ISBN"| Isbn["Base externa de ISBN"]
 ```
 
-**Legenda:** caixas são pessoas ou sistemas; cada seta indica o que trafega entre eles.
+**Legenda:** as caixas são pessoas (Leitor, Bibliotecário, Administrador), o sistema da biblioteca e os sistemas externos (e-mail e ISBN). Cada seta indica o que trafega entre eles.
 
 #### Nível 2: Contêineres
 
