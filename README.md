@@ -380,24 +380,22 @@ Todas as requisições usam HTTPS e, exceto o login, enviam o cookie de sessão.
 
 ### 2.4 Rastreabilidade
 
-<!-- Nenhum RNF pode ficar sem decisão, e nenhuma requisição pode ficar sem RF. -->
-
 #### RNF → decisão
 
 | RNF | Decisão (ADR ou elemento do C4) |
 |---|---|
-| RNF01 | |
-| RNF02 | |
-| RNF03 | |
-| RNF04 | |
-| RNF05 | |
-| RNF06 | |
+| RNF01 | ADR-002 (banco relacional com índices por título, autor e ISBN) |
+| RNF02 | C4 nível 2 (setas HTTPS/JSON entre cliente, servidor e usuários) e seção HTTPS |
+| RNF03 | ADR-003 (sessão no servidor, que permite bloquear a conta na hora) |
+| RNF04 | C4 nível 2 (servidor e banco em hospedagem em nuvem gerenciada) |
+| RNF05 | ADR-001 (cliente web sem instalação) |
+| RNF06 | ADR-001 (cliente web responsivo, em navegadores e telas a partir de 360 px) |
 
 #### Requisição HTTP → RF
 
 | Requisição | RF |
 |---|---|
-| Requisição 1 | |
-| Requisição 2 | |
-| Requisição 3 | |
-| Requisição 4 | |
+| Requisição 1: `GET /api/livros?titulo=...` | RF03 |
+| Requisição 2: `POST /api/emprestimos` (201) | RF05 |
+| Requisição 3: `PUT /api/emprestimos/105/devolucao` | RF06 |
+| Requisição 4: `POST /api/emprestimos` (422, erro) | RF05 |
