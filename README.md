@@ -122,28 +122,51 @@ flowchart LR
 
 ```mermaid
 ---
-title: C4 Nível 3 - Componentes do servidor
+title: C4 Nível 3 - Componentes do servidor / API
 ---
 flowchart TB
+    Web["Aplicação web<br/>(contêiner)"]
     subgraph Apresentacao["Camada de apresentação"]
-        Controllers["Controladores da API"]
+        Ctrl["Controladores REST<br/>e middleware de sessão"]
     end
     subgraph Negocio["Camada de negócio"]
         Auth["Autenticação"]
+        Leitores["Leitores e contas"]
         Acervo["Acervo"]
-        Emprestimos["Empréstimos"]
+        Emp["Empréstimos e multas"]
+        Res["Reservas"]
+        Notif["Notificações"]
     end
-    subgraph Dados["Camada de dados"]
-        Repos["Acesso a dados"]
+    subgraph Dados["Camada de dados e integrações"]
+        Repos["Repositórios de dados"]
+        IsbnCli["Cliente da base de ISBN"]
+        EmailCli["Cliente de e-mail"]
     end
-    Controllers --> Auth
-    Controllers --> Acervo
-    Controllers --> Emprestimos
+    Bd[("Banco de dados<br/>PostgreSQL")]
+    Isbn["Base externa de ISBN"]
+    Email["Serviço de e-mail"]
+
+    Web -->|"HTTPS/JSON"| Ctrl
+    Ctrl --> Auth
+    Ctrl --> Leitores
+    Ctrl --> Acervo
+    Ctrl --> Emp
+    Ctrl --> Res
+    Auth --> Repos
+    Leitores --> Repos
     Acervo --> Repos
-    Emprestimos --> Repos
+    Acervo --> IsbnCli
+    Emp --> Repos
+    Res --> Repos
+    Notif --> Repos
+    Notif --> EmailCli
+    Repos -->|"SQL"| Bd
+    IsbnCli -->|"HTTPS/JSON"| Isbn
+    EmailCli -->|"HTTPS/JSON"| Email
 ```
 
-**Legenda:** os módulos estão agrupados nas três camadas do servidor.
+**Legenda:** os módulos do servidor estão agrupados nas três camadas: apresentação (recebe as requisições), negócio (aplica as regras RN01 a RN06) e dados (acesso ao banco e às integrações). As caixas fora das camadas são vizinhos do servidor.
+
 
 ---
 
