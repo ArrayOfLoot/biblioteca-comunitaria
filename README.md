@@ -191,22 +191,24 @@ Escolhi a alternativa B, porque o RNF06 pede compatibilidade com navegadores e t
 - Positivas: um único código atende leitor e bibliotecário, sem publicação em loja, e as correções chegam a todos imediatamente.
 - Negativas: sem conexão com a internet o sistema não funciona (não há uso offline), e os avisos dependem de e-mail porque não há notificação push.
 
-#### ADR-003: [Título em forma de decisão]
+#### ADR-002: Usar banco de dados relacional (PostgreSQL) em vez de NoSQL
 
-**Status:** proposta
-**Data:** AAAA-MM-DD
+**Status:** aceita
+**Data:** 2026-11-04
 
 **Contexto**
+O RNF01 exige pesquisa em até 2 segundos para 95% das requisições. Além disso, as regras RN03 (máximo de 3 itens por leitor) e RN04 (bloqueio por multa ou atraso) exigem consultar e gravar, de forma consistente, os dados de leitores, empréstimos e multas no registro de um empréstimo (RF05).
 
 **Alternativas consideradas**
-- **Alternativa A: [nome].** A favor: ... Contra: ...
-- **Alternativa B: [nome].** A favor: ... Contra: ...
+- **Alternativa A: PostgreSQL (relacional).** A favor: transações garantem que dois bibliotecários não emprestem o mesmo exemplar ao mesmo tempo, chaves estrangeiras mantêm leitores, exemplares e empréstimos consistentes, e índices por título, autor e ISBN aceleram a pesquisa. Contra: o esquema é rígido e exige migrações quando o modelo muda, e escalar horizontalmente é mais trabalhoso.
+- **Alternativa B: MongoDB (NoSQL de documentos).** A favor: esquema flexível e escala horizontal simples. Contra: os relacionamentos entre leitor, exemplar, empréstimo e multa viram referências mantidas pela aplicação, e a consistência entre vários documentos é mais difícil de garantir.
 
 **Decisão**
+Escolhi a alternativa A, porque as regras RN03 e RN04 dependem de dados relacionados e consistentes, e o RNF01 é atendido com índices sobre título, autor e ISBN para o volume de uma biblioteca de bairro (até 50 usuários simultâneos).
 
 **Consequências**
-- Positivas: ...
-- Negativas: ...
+- Positivas: integridade dos dados garantida pelo banco, regras de empréstimo aplicadas dentro de uma transação e pesquisa rápida com índices.
+- Negativas: mudanças no modelo de dados exigem migrações, e, se o acervo crescer muito, será preciso trabalho extra (como réplicas de leitura) para manter o desempenho.
 
 ---
 
