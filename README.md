@@ -172,43 +172,24 @@ flowchart TB
 
 ### 2.2 Registros de decisão (ADRs)
 
-<!-- 3 ADRs. Cada um com 2 alternativas reais, consequência negativa e um requisito apontado. -->
+#### ADR-001: Adotar um cliente web responsivo em vez de um aplicativo móvel
 
-#### ADR-001: [Título em forma de decisão]
-
-**Status:** proposta
-**Data:** AAAA-MM-DD
+**Status:** aceita
+**Data:** 2026-11-04
 
 **Contexto**
-Que requisito (RF, RNF ou RN) exige esta decisão agora?
+O RNF06 exige que o sistema funcione nos principais navegadores e em telas a partir de 360 pixels, e o RNF05 exige que um leitor novo conclua o cadastro em até 3 minutos, sem ajuda. A biblioteca é comunitária, atendida por voluntários, e os leitores usam celulares variados, enquanto o bibliotecário usa um computador no balcão.
 
 **Alternativas consideradas**
-- **Alternativa A: [nome].** A favor: ... Contra: ...
-- **Alternativa B: [nome].** A favor: ... Contra: ...
+- **Alternativa A: aplicativo móvel nativo (Android).** A favor: acesso a recursos do aparelho, notificações push e uso offline parcial. Contra: exige instalação por loja de aplicativos, precisa de versões separadas para Android e iOS, tem custo de publicação e manutenção, e não atende o computador do balcão.
+- **Alternativa B: aplicação web responsiva (SPA).** A favor: não exige instalação, usa uma única base de código para celular e computador, atualiza para todos ao mesmo tempo. Contra: depende de conexão com a internet e não tem notificações push nativas.
 
 **Decisão**
-Escolhi a alternativa [A], porque [razão ligada ao requisito].
+Escolhi a alternativa B, porque o RNF06 pede compatibilidade com navegadores e telas pequenas, e o RNF05 é mais fácil de cumprir quando o leitor só precisa abrir um link, sem instalar nada.
 
 **Consequências**
-- Positivas: ...
-- Negativas: ...
-
-#### ADR-002: [Título em forma de decisão]
-
-**Status:** proposta
-**Data:** AAAA-MM-DD
-
-**Contexto**
-
-**Alternativas consideradas**
-- **Alternativa A: [nome].** A favor: ... Contra: ...
-- **Alternativa B: [nome].** A favor: ... Contra: ...
-
-**Decisão**
-
-**Consequências**
-- Positivas: ...
-- Negativas: ...
+- Positivas: um único código atende leitor e bibliotecário, sem publicação em loja, e as correções chegam a todos imediatamente.
+- Negativas: sem conexão com a internet o sistema não funciona (não há uso offline), e os avisos dependem de e-mail porque não há notificação push.
 
 #### ADR-003: [Título em forma de decisão]
 
