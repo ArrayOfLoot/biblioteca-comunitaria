@@ -210,6 +210,25 @@ Escolhi a alternativa A, porque as regras RN03 e RN04 dependem de dados relacion
 - Positivas: integridade dos dados garantida pelo banco, regras de empréstimo aplicadas dentro de uma transação e pesquisa rápida com índices.
 - Negativas: mudanças no modelo de dados exigem migrações, e, se o acervo crescer muito, será preciso trabalho extra (como réplicas de leitura) para manter o desempenho.
 
+#### ADR-003: Autenticar por sessão no servidor em vez de token JWT
+
+**Status:** aceita
+**Data:** 2026-11-04
+
+**Contexto**
+O RF02 exige login para três perfis de usuário. O RNF03 exige bloquear a conta por 15 minutos após 5 tentativas erradas, e o RF12 permite que o administrador desative contas de bibliotecários. Em ambos os casos, o acesso precisa ser cortado imediatamente.
+
+**Alternativas consideradas**
+- **Alternativa A: sessão guardada no servidor, com cookie HttpOnly e Secure.** A favor: o servidor pode invalidar a sessão na hora (conta bloqueada ou desativada), e o cookie não é acessível por JavaScript, o que reduz o risco de roubo por XSS. Contra: o servidor precisa guardar o estado das sessões e, com várias instâncias, exigiria um armazenamento compartilhado.
+- **Alternativa B: token JWT enviado no cabeçalho Authorization.** A favor: não guarda estado no servidor, escala com facilidade e funciona bem com aplicativos móveis. Contra: não pode ser revogado antes de expirar sem uma lista de bloqueio, e, se ficar no armazenamento do navegador, fica exposto a XSS.
+
+**Decisão**
+Escolhi a alternativa A, porque o RNF03 e o RF12 exigem cortar o acesso de uma conta imediatamente, e o sistema roda em um único servidor com poucos usuários, onde o custo de guardar sessões é pequeno.
+
+**Consequências**
+- Positivas: bloqueio e desativação de contas valem na hora, e o identificador de sessão fica menos exposto.
+- Negativas: as sessões precisam de armazenamento (uma tabela no PostgreSQL), o sistema exige proteção contra CSRF (cookie SameSite e token CSRF), e a decisão precisa ser revista se surgirem várias instâncias do servidor ou um aplicativo móvel.
+
 ---
 
 ### 2.3 Comunicação cliente-servidor
