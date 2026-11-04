@@ -105,12 +105,18 @@ flowchart LR
 title: C4 Nível 2 - Contêineres do sistema da biblioteca
 ---
 flowchart LR
-    Usuario["Usuários"] -->|"HTTPS"| Cliente["Aplicação cliente<br/>[tecnologia]"]
-    Cliente -->|"HTTPS/JSON"| Api["Servidor / API<br/>[tecnologia]"]
-    Api -->|"SQL"| Bd[("Banco de dados<br/>[tecnologia]")]
+    Usuarios["Leitor, Bibliotecário<br/>e Administrador"] -->|"HTTPS"| Web["Aplicação web<br/>React (SPA responsiva)"]
+    subgraph Nuvem["Hospedagem em nuvem (PaaS)"]
+        Api["Servidor / API REST<br/>Node.js + Express"]
+        Bd[("Banco de dados<br/>PostgreSQL")]
+    end
+    Web -->|"HTTPS/JSON"| Api
+    Api -->|"SQL sobre TLS"| Bd
+    Api -->|"HTTPS/JSON: aviso de devolução"| Email["Serviço de e-mail"]
+    Api -->|"HTTPS/JSON: consulta por ISBN"| Isbn["Base externa de ISBN"]
 ```
 
-**Legenda:** cada contêiner mostra a tecnologia escolhida; cada seta mostra o protocolo.
+**Legenda:** cada contêiner mostra a tecnologia escolhida. Cada seta mostra o protocolo e, quando útil, o que trafega. O servidor e o banco rodam em uma hospedagem em nuvem gerenciada (atende o RNF04), e todo o tráfego do cliente usa HTTPS (atende o RNF02).
 
 #### Nível 3: Componentes do servidor
 
