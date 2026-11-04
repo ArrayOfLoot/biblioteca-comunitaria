@@ -235,26 +235,29 @@ Escolhi a alternativa A, porque o RNF03 e o RF12 exigem cortar o acesso de uma c
 
 #### Fluxo de requisição e resposta
 
-<!-- Diagrama de sequência de um caso de uso completo: cliente → servidor → banco → resposta. -->
+Caso de uso completo: **registrar o empréstimo de um exemplar (RF05)**.
 
 ```mermaid
 ---
-title: Sequência - [nome do caso de uso]
+title: Sequência - Registrar empréstimo (RF05)
 ---
 sequenceDiagram
-    actor U as Usuário
-    participant C as Cliente
+    actor B as Bibliotecário
+    participant C as Aplicação web
     participant S as Servidor / API
-    participant B as Banco de dados
-    U->>C: [ação]
-    C->>S: [requisição HTTPS]
-    S->>B: [consulta SQL]
-    B-->>S: [resultado]
-    S-->>C: [resposta JSON]
-    C-->>U: [resultado na tela]
+    participant D as Banco de dados
+    B->>C: informa o leitor e o exemplar
+    C->>S: POST /api/emprestimos (HTTPS/JSON, cookie de sessão)
+    S->>D: consulta empréstimos ativos e multas do leitor (SQL)
+    D-->>S: dados do leitor
+    S->>S: valida RN03 e RN04
+    S->>D: grava o empréstimo e marca o exemplar como emprestado (SQL, transação)
+    D-->>S: gravação confirmada
+    S-->>C: 201 Created com os dados do empréstimo (JSON)
+    C-->>B: exibe o comprovante com a data de devolução
 ```
 
-**Legenda:** setas contínuas são pedidos; setas tracejadas são respostas.
+**Legenda:** setas contínuas são pedidos; setas tracejadas são respostas. A validação das regras RN03 e RN04 acontece no servidor, antes da gravação.
 
 #### Requisições HTTP
 
