@@ -56,22 +56,23 @@ A Biblioteca Comunitária de Manaus é uma biblioteca de bairro mantida por doa�
 
 | Código | Tipo | Descrição | Prioridade |
 |---|---|---|---|
-| RNF01 | Desempenho | | |
-| RNF02 | Segurança | | |
-| RNF03 | Disponibilidade | | |
-| RNF04 | Usabilidade | | |
-| RNF05 | Compatibilidade | | |
-| RNF06 | | | |
+| RNF01 | Desempenho | A pesquisa no acervo deve retornar resultados em até 2 segundos em 95% das requisições, com até 50 usuários simultâneos. | Alta |
+| RNF02 | Segurança | Toda comunicação entre o cliente e o servidor deve usar HTTPS com TLS 1.2 ou superior em 100% das requisições. | Alta |
+| RNF03 | Segurança | A conta de um usuário deve ser bloqueada por 15 minutos após 5 tentativas de login consecutivas com senha errada. | Média |
+| RNF04 | Disponibilidade | O sistema deve ter disponibilidade mínima de 99% por mês no horário de funcionamento da biblioteca (8h às 20h). | Alta |
+| RNF05 | Usabilidade | Um leitor novo deve conseguir concluir o cadastro em até 3 minutos, sem ajuda de outra pessoa. | Média |
+| RNF06 | Compatibilidade | O sistema deve funcionar nas duas últimas versões do Chrome, Firefox, Edge e Safari, em telas a partir de 360 pixels de largura. | Alta |
 
 #### Regras de negócio (RN)
 
 | Código | Tipo | Descrição | Prioridade |
 |---|---|---|---|
-| RN01 | Regra de negócio | | |
-| RN02 | Regra de negócio | | |
-| RN03 | Regra de negócio | | |
-| RN04 | Regra de negócio | | |
-| RN05 | Regra de negócio | | |
+| RN01 | Regra de negócio | O prazo de empréstimo é de 14 dias corridos. | Alta |
+| RN02 | Regra de negócio | O atraso na devolução gera multa de R$ 0,50 por dia, por item. | Alta |
+| RN03 | Regra de negócio | Cada leitor pode ter no máximo 3 itens emprestados ao mesmo tempo. | Alta |
+| RN04 | Regra de negócio | Leitor com multa pendente ou com item em atraso não pode retirar novos itens. | Média |
+| RN05 | Regra de negócio | Cada empréstimo pode ser renovado uma única vez, por mais 7 dias, e somente se não houver reserva para o livro. | Média |
+| RN06 | Regra de negócio | Menores de 18 anos só podem se associar com autorização de um responsável. | Média |
 
 ---
 
