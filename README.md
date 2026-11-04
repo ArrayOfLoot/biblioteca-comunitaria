@@ -367,9 +367,14 @@ Todas as requisições usam HTTPS e, exceto o login, enviam o cookie de sessão.
 
 #### HTTPS
 
-<!-- Que dados do sistema precisam de proteção e o que o TLS garante. -->
+**Dados que precisam de proteção.** Passam pelo sistema: as credenciais de login (e-mail e senha), o identificador de sessão no cookie, os dados pessoais do leitor (nome, documento, e-mail e telefone, protegidos pela LGPD, Lei 13.709/2018), o histórico de empréstimos (que revela hábitos de leitura) e os dados das contas de bibliotecários.
 
-[Escrever aqui.]
+**O que o TLS garante.**
+- **Confidencialidade:** o conteúdo é criptografado, então quem estiver na mesma rede Wi-Fi não consegue ler senhas ou dados pessoais.
+- **Integridade:** o conteúdo não pode ser alterado no caminho sem que isso seja detectado.
+- **Autenticidade do servidor:** o certificado confirma ao navegador que ele está falando com o servidor verdadeiro da biblioteca, e não com um falso.
+
+**O que o TLS não garante.** Ele protege os dados apenas em trânsito. Depois que chegam ao servidor, a proteção depende de outras medidas, como guardar as senhas com hash e limitar o acesso ao banco. O sistema aceita apenas conexões HTTPS com TLS 1.2 ou superior e redireciona qualquer acesso HTTP para HTTPS, para cumprir o RNF02.
 
 ---
 
