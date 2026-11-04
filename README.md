@@ -261,24 +261,90 @@ sequenceDiagram
 
 #### Requisições HTTP
 
-<!-- 4 requisições, com método, URL, status e JSON. Pelo menos uma com erro 4xx. Cada uma liga a um RF. -->
+Todas as requisições usam HTTPS e, exceto o login, enviam o cookie de sessão.
 
-**Requisição 1: [nome]** (RF__)
+**Requisição 1: pesquisar livros por título** (RF03)
 
-- **Método e URL:** `GET /api/...`
+- **Método e URL:** `GET /api/livros?titulo=dom+casmurro`
 - **Status da resposta:** `200 OK`
 
 ```json
-{}
+{
+  "total": 1,
+  "livros": [
+    {
+      "id": 12,
+      "titulo": "Dom Casmurro",
+      "autor": "Machado de Assis",
+      "isbn": "9788535910001",
+      "exemplaresDisponiveis": 2
+    }
+  ]
+}
 ```
 
-**Requisição 2: [nome]** (RF__)
+**Requisição 2: registrar um empréstimo** (RF05)
 
-- **Método e URL:** `POST /api/...`
+- **Método e URL:** `POST /api/emprestimos`
+- **Corpo da requisição:**
+
+```json
+{
+  "leitorId": 7,
+  "exemplarId": 31
+}
+```
+
 - **Status da resposta:** `201 Created`
 
 ```json
-{}
+{
+  "id": 105,
+  "leitorId": 7,
+  "exemplarId": 31,
+  "dataEmprestimo": "2026-11-04",
+  "dataDevolucaoPrevista": "2026-11-18",
+  "renovacoes": 0
+}
+```
+
+**Requisição 3: registrar a devolução de um exemplar, com atraso** (RF06)
+
+- **Método e URL:** `PUT /api/emprestimos/105/devolucao`
+- **Status da resposta:** `200 OK`
+
+```json
+{
+  "id": 105,
+  "status": "devolvido",
+  "dataDevolucao": "2026-11-20",
+  "diasAtraso": 2,
+  "multa": {
+    "valor": 1.00
+  }
+}
+```
+
+**Requisição 4: registrar empréstimo para leitor que atingiu o limite (erro)** (RF05)
+
+- **Método e URL:** `POST /api/emprestimos`
+- **Corpo da requisição:**
+
+```json
+{
+  "leitorId": 7,
+  "exemplarId": 44
+}
+```
+
+- **Status da resposta:** `422 Unprocessable Entity`
+
+```json
+{
+  "erro": "LIMITE_DE_EMPRESTIMOS",
+  "mensagem": "O leitor já possui 3 itens emprestados, que é o limite da RN03.",
+  "itensAtivos": 3
+}
 ```
 
 **Requisição 3: [nome]** (RF__)
