@@ -5,8 +5,6 @@
 **Autora:** Luchie Bonates Simões
 **Tema:** sistema de empréstimos para uma biblioteca comunitária de Manaus
 
-<!-- Os comentários como este não aparecem no GitHub. Servem de lembrete e podem ser apagados no final. -->
-
 ---
 
 ## Sumário
@@ -26,14 +24,9 @@
 
 ### 1.1 Descrição do sistema
 
-<!-- Um parágrafo sobre o negócio e os tipos de usuário: leitor, bibliotecário e administrador. -->
-
 A Biblioteca Comunitária de Manaus é uma biblioteca de bairro mantida por doações e trabalho voluntário, que empresta livros gratuitamente a moradores associados. Hoje o controle é feito em fichas de papel, o que causa perda de prazos, livros emprestados em duplicidade e dificuldade de saber o que existe no acervo. O sistema proposto organiza o acervo, os empréstimos, as devoluções e as multas. Há três tipos de usuário: o **leitor**, que se cadastra, pesquisa livros, reserva, renova e acompanha seus empréstimos; o **bibliotecário**, que cadastra livros e registra empréstimos, devoluções e pagamentos de multa no balcão; e o **administrador**, que gerencia as contas dos bibliotecários. O sistema conversa com dois sistemas externos: um **serviço de e-mail**, usado nos avisos de devolução, e uma **base externa de consulta por ISBN**, usada para preencher os dados dos livros cadastrados.
 
 ### 1.2 Tabela de requisitos
-
-<!-- Mínimos: 10 RF, 6 RNF (mensuráveis, em pelo menos 4 categorias) e 5 RN. -->
-<!-- RF: "O sistema deve permitir que [usuário] [ação]". RNF: sempre com medida. RN: vale mesmo sem o sistema. -->
 
 #### Requisitos funcionais (RF)
 
@@ -167,7 +160,6 @@ flowchart TB
 
 **Legenda:** os módulos do servidor estão agrupados nas três camadas: apresentação (recebe as requisições), negócio (aplica as regras RN01 a RN06) e dados (acesso ao banco e às integrações). As caixas fora das camadas são vizinhos do servidor.
 
-
 ---
 
 ### 2.2 Registros de decisão (ADRs)
@@ -261,7 +253,7 @@ sequenceDiagram
 
 #### Requisições HTTP
 
-Todas as requisições usam HTTPS e, exceto o login, enviam o cookie de sessão.
+Todas as requisições usam HTTPS e enviam o cookie de sessão.
 
 **Requisição 1: pesquisar livros por título** (RF03)
 
@@ -345,24 +337,6 @@ Todas as requisições usam HTTPS e, exceto o login, enviam o cookie de sessão.
   "mensagem": "O leitor já possui 3 itens emprestados, que é o limite da RN03.",
   "itensAtivos": 3
 }
-```
-
-**Requisição 3: [nome]** (RF__)
-
-- **Método e URL:** `PUT /api/...`
-- **Status da resposta:** `200 OK`
-
-```json
-{}
-```
-
-**Requisição 4: [nome, caso de erro]** (RF__)
-
-- **Método e URL:** `POST /api/...`
-- **Status da resposta:** `4xx`
-
-```json
-{}
 ```
 
 #### HTTPS
