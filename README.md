@@ -28,7 +28,7 @@
 
 <!-- Um parágrafo sobre o negócio e os tipos de usuário: leitor, bibliotecário e administrador. -->
 
-[Escrever aqui.]
+A Biblioteca Comunitária de Manaus é uma biblioteca de bairro mantida por doações e trabalho voluntário, que empresta livros gratuitamente a moradores associados. Hoje o controle é feito em fichas de papel, o que causa perda de prazos, livros emprestados em duplicidade e dificuldade de saber o que existe no acervo. O sistema proposto organiza o acervo, os empréstimos, as devoluções e as multas. Há três tipos de usuário: o **leitor**, que se cadastra, pesquisa livros, reserva, renova e acompanha seus empréstimos; o **bibliotecário**, que cadastra livros e registra empréstimos, devoluções e pagamentos de multa no balcão; e o **administrador**, que gerencia as contas dos bibliotecários. O sistema conversa com dois sistemas externos: um **serviço de e-mail**, usado nos avisos de devolução, e uma **base externa de consulta por ISBN**, usada para preencher os dados dos livros cadastrados.
 
 ### 1.2 Tabela de requisitos
 
@@ -39,16 +39,18 @@
 
 | Código | Tipo | Descrição | Prioridade |
 |---|---|---|---|
-| RF01 | Funcional | O sistema deve permitir que o ... | Alta |
-| RF02 | Funcional | | |
-| RF03 | Funcional | | |
-| RF04 | Funcional | | |
-| RF05 | Funcional | | |
-| RF06 | Funcional | | |
-| RF07 | Funcional | | |
-| RF08 | Funcional | | |
-| RF09 | Funcional | | |
-| RF10 | Funcional | | |
+| RF01 | Funcional | O sistema deve permitir que o leitor se cadastre informando nome, documento, e-mail e telefone. | Alta |
+| RF02 | Funcional | O sistema deve permitir que o leitor, o bibliotecário e o administrador entrem no sistema com e-mail e senha. | Alta |
+| RF03 | Funcional | O sistema deve permitir que o leitor pesquise livros por título, autor, ISBN ou categoria e veja a disponibilidade dos exemplares. | Alta |
+| RF04 | Funcional | O sistema deve permitir que o bibliotecário cadastre um livro a partir do ISBN, com os dados preenchidos por consulta a uma base externa. | Alta |
+| RF05 | Funcional | O sistema deve permitir que o bibliotecário registre o empréstimo de um exemplar a um leitor. | Alta |
+| RF06 | Funcional | O sistema deve permitir que o bibliotecário registre a devolução de um exemplar. | Alta |
+| RF07 | Funcional | O sistema deve permitir que o leitor renove um empréstimo ativo. | Média |
+| RF08 | Funcional | O sistema deve permitir que o leitor reserve um livro que está emprestado. | Média |
+| RF09 | Funcional | O sistema deve permitir que o leitor consulte seus empréstimos, prazos de devolução e multas. | Média |
+| RF10 | Funcional | O sistema deve permitir que o leitor receba por e-mail um aviso 2 dias antes do vencimento do empréstimo. | Média |
+| RF11 | Funcional | O sistema deve permitir que o bibliotecário registre o pagamento de uma multa. | Média |
+| RF12 | Funcional | O sistema deve permitir que o administrador gerencie as contas dos bibliotecários. | Média |
 
 #### Requisitos não funcionais (RNF)
 
